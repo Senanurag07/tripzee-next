@@ -175,7 +175,7 @@ export default function ReelsCarousel() {
                 muted={muteStates[i]}
                 onClick={() => handleVideoClick(i)}
                 onEnded={handleEnded}
-                className="w-full h-full object-cover cursor-pointer"
+                className="w-full h-full object-cover "
                 playsInline
               />
 

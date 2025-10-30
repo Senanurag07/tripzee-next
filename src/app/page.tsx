@@ -7,6 +7,9 @@ import TripSection from "./components/sections/TripSection";
 import HeroSection from "./components/HeroSection";
 import ReelsCarousel from "./components/ReelsCarousel";
 import ExploreMore from "./components/ExploreMore";
+import FaqSection from "./components/FaqSection";
+import BlogStories from "./components/blogs";
+import WhyTripzeeSection from "./components/WhyTripzeeSection";
 
 export default function Page() {
   return (
@@ -21,6 +24,9 @@ export default function Page() {
         <TripSection />
         <OfferBanner/>
         <ExploreMore/>
+        <WhyTripzeeSection/>
+        <BlogStories/>
+        <FaqSection/>
       </main>
       <Footer />
     </div>
