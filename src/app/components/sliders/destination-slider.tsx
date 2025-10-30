@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import DestinationCard, { demoDestinations } from "../cards/destination-card";
@@ -28,30 +28,13 @@ export default function DestinationSlider() {
     [WheelGesturesPlugin({ forceWheelAxis: "x" })]
   );
 
-  const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
-  const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
-
-  const scrollPrev = useCallback(
-    () => emblaApi && emblaApi.scrollPrev(),
-    [emblaApi]
-  );
-  const scrollNext = useCallback(
-    () => emblaApi && emblaApi.scrollNext(),
-    [emblaApi]
-  );
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setPrevBtnDisabled(!emblaApi.canScrollPrev());
-    setNextBtnDisabled(!emblaApi.canScrollNext());
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
   }, [emblaApi]);
 
-  useEffect(() => {
-    if (!emblaApi) return;
-    onSelect();
-    emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onSelect);
-  }, [emblaApi, onSelect]);
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   return (
     <div className="relative h-full w-full">
@@ -72,20 +55,20 @@ export default function DestinationSlider() {
           ))}
         </div>
       </div>
-      <button
-        onClick={scrollPrev}
-        disabled={prevBtnDisabled}
-        className="slidePrev absolute top-1/3 -translate-x-1/2 left-0 translate-y-full z-20 lg:h-8 lg:w-8 md:h-7 md:w-7 h-6 w-6 p-0.5 lg:p-1 rounded-full bg-white text-primary hover:bg-primary hover:text-white transition-all duration-300 ease-in-out shadow-[0px_2px_8px_0px_rgba(0,0,0,0.25)] hover:shadow-none disabled:hidden hidden md:block"
-      >
-        <ArrowLeft className="h-full w-full" />
-      </button>
-      <button
-        onClick={scrollNext}
-        disabled={nextBtnDisabled}
-        className="slideNext absolute top-1/3 translate-x-1/2 right-0 translate-y-full z-20 lg:h-8 lg:w-8 md:h-7 md:w-7 h-6 w-6 p-0.5 lg:p-1 rounded-full bg-white text-primary hover:bg-primary hover:text-white transition-all duration-300 ease-in-out shadow-[0px_2px_8px_0px_rgba(0,0,0,0.25)] hover:shadow-none disabled:hidden hidden md:block"
-      >
-        <ArrowRight className="h-full w-full" />
-      </button>
+      <div className="mt-8 flex justify-center items-center gap-4">
+        <div
+          className="p-2 border rounded-full cursor-pointer border-black text-black transition"
+          onClick={scrollPrev}
+        >
+          <ArrowLeft size={20} />
+        </div>
+        <div
+          className="p-2 border rounded-full cursor-pointer border-black text-black transition"
+          onClick={scrollNext}
+        >
+          <ArrowRight size={20} />
+        </div>
+      </div>
     </div>
   );
 }

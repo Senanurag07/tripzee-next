@@ -10,23 +10,26 @@ import ExploreMore from "./components/ExploreMore";
 import FaqSection from "./components/FaqSection";
 import BlogStories from "./components/blogs";
 import WhyTripzeeSection from "./components/WhyTripzeeSection";
+import BottomBar from "./components/global/BottomBar";
 
 export default function Page() {
   return (
     <div className="min-h-screen flex flex-col">
+      <BottomBar/>
       <Navbar />
       <main className="flex-1">
-        <HeroSection/>
+        <HeroSection />
         <DestinationCategories />
         <OfferBanner />
-        <TripSection />
+        <TripSection title="Trending Trips"  />
         <ReelsCarousel />
-        <TripSection />
-        <OfferBanner/>
-        <ExploreMore/>
-        <WhyTripzeeSection/>
-        <BlogStories/>
-        <FaqSection/>
+        <TripSection title="Popular Trips"  />
+        <OfferBanner />
+        <ExploreMore />
+        <WhyTripzeeSection />
+
+        <FaqSection />
+        <BlogStories />
       </main>
       <Footer />
     </div>

@@ -68,17 +68,17 @@ export default function FaqSection() {
               value={faq.id}
               className="rounded-xl border border-transparent bg-transparent  "
             >
-             
               <AccordionTrigger className="flex items-center">
                 <div className="flex items-center gap-6 text-lg font-semibold w-full">
                   <span className=" text-black font-bold">{faq.id}</span>
-                  <span className="text-black">{faq.question}</span>
+                  <span className="text-black text-lg ">{faq.question}</span>
                 </div>
               </AccordionTrigger>
-             <div className="w-full my-2">
-  <div className="h-px w-full bg-linear-to-r from-transparent via-black to-transparent"></div>
-</div>
+              <div className="w-full my-2">
+                <div className="h-px hidden sm:block w-full bg-linear-to-r from-transparent via-black to-transparent"></div>
 
+
+              </div>
 
               <AccordionContent className="ml-[60px] text-neutral-600 text-sm leading-relaxed">
                 {faq.answer}

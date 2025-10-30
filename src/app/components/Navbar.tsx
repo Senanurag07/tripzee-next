@@ -55,17 +55,17 @@ const Navbar = () => (
       <div className="max-container mx-auto flex items-center justify-center px-6 space-x-6 text-sm">
         <TopBarItem
           icon={FaGoogle}
-          text="4.8/5 Reviews"
-          className="text-yellow-400"
+          text="4.7(2800+ Reviews)"
+          className="text-white"
         />
         <TopBarItem
           icon={FaInstagram}
           text="30k+ Followers"
-          className="text-pink-500"
+          className="text-white"
         />
         <TopBarItem
           icon={FaUserCircle}
-          text="Sign In"
+          text="10+ Years Experience"
           className="cursor-pointer hover:text-gray-300 transition"
           onClick={() => {}}
         />

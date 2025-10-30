@@ -83,7 +83,6 @@ export const tripsData = [
 
 interface TripCardProps {
   image: string;
-  days: string;
   title: string;
   location: string;
   date: string;
@@ -95,7 +94,6 @@ interface TripCardProps {
 
 export default function TripCard({
   image,
-  days,
   title,
   location,
   date,
@@ -105,64 +103,57 @@ export default function TripCard({
   badge,
 }: TripCardProps) {
   return (
-    <div className="relative w-full max-w-[360px] h-[480px] rounded-2xl overflow-hidden shadow-md border border-[#EAEAEA] group">
-      {/* Background Image */}
+    <div className="relative  max-w-[300px] h-[400px] rounded-2xl overflow-hidden shadow-md border border-[#EAEAEA] group">
       <div className="absolute inset-0 w-full h-full">
         <Image
           src={image}
           alt={title}
           fill
-          className="object-cover brightness-50 transition-transform duration-500 group-hover:scale-105"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
 
       {/* Content Overlay */}
       <div className="relative z-10 h-full flex flex-col justify-between p-5 text-white">
-        {/* Top Section */}
-        <div className="flex justify-between items-start">
-          <p className="bg-[#FDDC39] text-black font-bold text-[12px] px-3 py-1 rounded-full">
-            {days}
-          </p>
-          <p className="bg-[#FDDC39] text-black font-semibold text-[12px] px-4 py-1.5 rounded-full">
-            {badge}
-          </p>
-        </div>
 
-        {/* Main Content - Pushed to bottom */}
-        <div className="space-y-4">
-          {/* Title */}
-          <h3 className="text-xl lg:text-[22px] font-bold leading-snug">
-            {title}
-          </h3>
+  {/* Gradient Overlay */}
+  <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent pointer-events-none"></div>
 
-          {/* Location + Date */}
-          <div className="flex items-center gap-4 text-sm opacity-90 font-medium flex-wrap">
-            <span className="flex items-center gap-1">
-              <MapPin size={16} /> {location}
-            </span>
-            <span className="flex items-center gap-1 whitespace-nowrap">
-              <CalendarDays size={16} /> {date}
-            </span>
-          </div>
+  {/* Top Section */}
+  <div className="relative space-y-4 flex flex-col justify-end h-full">
+    <p className="bg-[#FDDC39] w-26 text-nowrap text-black font-semibold text-[12px] px-4 py-1 rounded-full">
+      {badge}
+    </p>
 
-          {/* Batches */}
-          <span className="block text-[#FDDC39] text-[13px]">{batches}</span>
+    <h3 className="text-xl lg:text-[22px] font-bold leading-snug">
+      {title}
+    </h3>
 
-          {/* Pricing */}
-          <div className="border-t border-white/30 pt-3 flex items-center gap-3">
-            <span className="text-sm opacity-80">Price From</span>
-            <span className="text-[22px] font-extrabold">{price}</span>
-            <span className="text-sm line-through text-gray-400">
-              {oldPrice}
-            </span>
-          </div>
+    <div className="flex items-center gap-2 text-sm opacity-90 font-medium ">
+      <span className="flex text-nowrap text-[13px] items-center gap-1">
+        <MapPin size={12} /> {location}
+      </span>
+      <span className="flex text-nowrap text-[13px] items-center gap-0.5 whitespace-nowrap">
+        <CalendarDays size={12} /> {date}
+      </span>
+      <span className="block text-[#FDDC39] text-nowrap text-[9px]">
+        {batches}
+      </span>
+    </div>
 
-          {/* Hover Button */}
-          <button className="w-full bg-[#FFE926] text-black font-bold py-2.5 rounded-lg opacity-0 translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0">
-            Explore Now
-          </button>
-        </div>
-      </div>
+    {/* Pricing */}
+    <div className="border-t border-white/30 pt-3 flex items-center gap-2">
+      <span className="text-sm opacity-80"> From</span>
+      <span className="text-[18px] text-nowrap font-semibold">
+        {price}
+      </span>
+      <span className="text-[10px] line-through text-nowrap text-gray-400">
+        {oldPrice}
+      </span>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 }

@@ -107,9 +107,9 @@ export default function HeroSection() {
         </div>
 
         {/* Embla Carousel Section (Bottom Left Fixed Position) */}
-        <div className="relative  w-full mt-8 lg:mt-0 lg:absolute lg:bottom-10 lg:left-190 lg:w-[600px]">
+        <div className="relative  w-full mt-8 lg:absolute lg:bottom-10 lg:left-190 lg:w-[600px]">
           <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex gap-20 sm:gap-5">
+            <div className="flex gap-26 sm:gap-5">
               {slides.map((slide) => (
                 <div
                   key={slide.id}

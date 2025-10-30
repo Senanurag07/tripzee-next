@@ -148,7 +148,7 @@ export function NavigationMenuDemo() {
         </NavigationMenuItem>
 
         {/* -------- WITH ICON MENU -------- */}
-        <NavigationMenuItem className="hidden md:block">
+        <NavigationMenuItem className="hidden gap-2 md:block">
           <NavigationMenuTrigger>More</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[200px] gap-4">
@@ -175,8 +175,8 @@ export function NavigationMenuDemo() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-          <div className="flex items-center space-x-3">
-            <div className="w-px h-6 bg-gray-300" />
+          <div className="flex items-center space-x-4">
+            <div className="w-[1.5px] h-6 bg-black" />
             <button className="bg-black hover:bg-gray-800 text-white p-2.5 rounded-md transition">
               <MagnifyingGlassIcon className="w-4 h-4" />
             </button>

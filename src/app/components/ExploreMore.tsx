@@ -25,8 +25,8 @@ export default function ExploreMore() {
           {cards.map((c, i) => (
             <div
               key={i}
-              className="relative rounded-md overflow-hidden bg-black group"
-              style={{ height: 380 }}
+              className="relative rounded-md overflow-hidden h-[430px] md:h-[382] bg-black group"
+              
             >
               {/* BG IMAGE */}
               <Image
@@ -69,10 +69,10 @@ export default function ExploreMore() {
         </div>
       </div>
 
-      <p className="text-center text-black text-lg mt-10">
+      <p className="sm:text-center  text-black  text-lg mt-10">
         We make travel simple and memorable.
         <span className="text-yellow-600 font-semibold">
-          Explore dream destinations
+      {" "}Explore dream destinations
         </span>{" "}
         with zero stress.
       </p>

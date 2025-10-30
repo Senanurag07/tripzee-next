@@ -48,7 +48,7 @@ const OfferBanner = () => {
   ];
 
   return (
-    <section className="relative max-container bg-white w-full py-6 overflow-hidden">
+    <section className="relative max-container bg-white w-full py-4 overflow-hidden">
       <div
         className="overflow-hidden rounded-2xl"
         ref={emblaRef}
@@ -58,7 +58,7 @@ const OfferBanner = () => {
         <div className="flex">
           {banners.map((banner) => (
             <div key={banner.id} className="flex-[0_0_100%] min-w-0">
-              <div className="relative w-full h-[280px] sm:h-[350px] md:h-[400px] rounded-2xl overflow-hidden">
+              <div className="relative w-full h-[220px] sm:h-[350px] md:h-[400px] rounded-2xl overflow-hidden">
                 <Image
                   src={banner.img}
                   alt={`Offer ${banner.id}`}

@@ -1,6 +1,10 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useCallback } from "react";
 import { BsShieldCheck, BsPeople, BsGift, BsHeadset } from "react-icons/bs";
+import { AiFillStar } from "react-icons/ai";
+import { IoArrowBack, IoArrowForward } from "react-icons/io5";
+import useEmblaCarousel from "embla-carousel-react";
 
 export default function WhyTripzeeSection() {
   const features = [
@@ -26,89 +30,178 @@ export default function WhyTripzeeSection() {
     },
   ];
 
-  return (
-    <section className="w-full max-w-[1300px] bg-white max-container mx-auto px-6 py-16">
+  const reviews = [1, 2, 3, 4, 5]; // add more to see scroll properly
 
+  // ✅ Embla
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  return (
+    <section className="w-full max-container bg-white ">
       {/* HEADING */}
       <div className="flex flex-col gap-3">
         <h2 className="text-[36px] text-black font-bold tracking-tight">
           Why Tripzee Holidays?
         </h2>
-        <p className="max-w-[600px] text-[16px] text-gray-600 leading-[1.5]">
-          We make travel simple and memorable. Explore dream destinations
-          with zero stress.
+        <p className="max-w-[600px] text-[16px] text-gray-600 leading-normal">
+          We make travel simple and memorable. Explore dream destinations with
+          zero stress.
         </p>
       </div>
 
       {/* DIVIDER */}
       <div className="w-full h-px bg-gray-200 my-8"></div>
 
-      {/* FEATURES */}
+      {/* FEATURES GRID */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-
         {features.map((item, index) => (
           <div
             key={index}
-            className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] p-6 flex flex-col gap-4 border-b-4 border-yellow-400 hover:-translate-y-1 transition-all duration-200"
+            className={`bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] p-6 flex flex-col gap-4 ${
+              index % 2 === 0 ? "border-b-4" : "border-t-4"
+            } border-yellow-400 hover:-translate-y-1 transition-all duration-200`}
           >
             <div className="bg-black text-white w-12 h-12 rounded-full flex items-center justify-center">
               {item.icon}
             </div>
 
-            <h3 className="text-[18px] text-black font-semibold">{item.title}</h3>
+            <h3 className="text-[18px] text-black font-semibold">
+              {item.title}
+            </h3>
 
             <p className="text-[14px] text-gray-800 leading-[1.45]">
               {item.desc}
             </p>
           </div>
         ))}
-
       </div>
 
       {/* CTA BOX */}
-      <div className="mt-14 bg-[#FFFBDF] rounded-xl p-10 flex flex-col md:flex-row justify-between items-center gap-8 relative">
-
+      <div className="mt-12 flex-col-reverse bg-[#FFFBDF] rounded-xl p-6 flex  md:flex-row justify-between md:items-center gap-8 relative">
         {/* TEXT */}
         <div className="max-w-[600px] flex flex-col gap-4">
           <h3 className="text-[24px] text-black md:text-[28px] font-semibold">
             Not sure where your next adventure should be?
           </h3>
           <p className="text-[15px] text-gray-800 leading-[1.45]">
-            Leave the details to us! Our experts design trips that match your energy
-            and bring your travel dreams alive.
+            Leave the details to us! Our experts design trips that match your
+            energy and bring your travel dreams alive.
           </p>
 
-          <button className="bg-yellow-400  py-3 w-60 mt-2 rounded-full font-medium text-gray-800 hover:bg-yellow-500 transition-all">
+          <button className="bg-yellow-400 py-3 sm:w-68  w-52  mt-2 rounded-full font-medium text-gray-800 hover:bg-yellow-500 transition-all">
             Connect with Expert
           </button>
         </div>
 
-{/* IMAGES CLUSTER */}
-<div className="flex items-center">
-  <Image
-    src="/assets/hero.jpg"
-    width={112} // w-28 = 112px
-    height={112} // h-28 = 112px
-    className="object-cover rounded-full border-4 border-white"
-    alt="Trip"
-  />
-  <Image
-    src="/assets/hero.jpg"
-    width={112}
-    height={112}
-    className="object-cover rounded-full border-4 border-white -ml-5"
-    alt="Trip"
-  />
-  <Image
-    src="/assets/hero.jpg"
-    width={112}
-    height={112}
-    className="object-cover rounded-full border-4 border-white -ml-5"
-    alt="Trip"
-  />
-</div>
+        {/* IMAGES CLUSTER */}
+        <div className="flex  ">
+          <div className="md:w-28 md:h-28 h-22 w-22 rounded-full overflow-hidden relative border-4 border-white shadow-lg">
+            <Image
+              src="/assets/hero.jpg"
+              fill
+              alt="Trip"
+              className="object-cover"
+              sizes="(max-width: 112px) 100vw, 112px"
+            />
+          </div>
+          <div className="md:w-28 md:h-28 h-22 w-22 rounded-full overflow-hidden relative border-4 border-white -ml-5 shadow-lg">
+            <Image
+              src="/assets/hero.jpg"
+              fill
+              alt="Trip"
+              className="object-cover"
+              sizes="(max-width: 112px) 100vw, 112px"
+            />
+          </div>
+          <div className="md:w-28 md:h-28 h-22 w-22 rounded-full overflow-hidden relative border-4 border-white -ml-5 shadow-lg">
+            <Image
+              src="/assets/hero.jpg"
+              fill
+              alt="Trip"
+              className="object-cover"
+              sizes="(max-width: 112px) 100vw, 112px"
+            />
+          </div>
+        </div>
+      </div>
 
+    
+      <div className="mt-12 ">
+        <h2 className="text-[32px] text-black font-bold tracking-tight">
+          Bucket List Experiences
+        </h2>
+        <p className="max-w-[600px] text-[16px] text-gray-600 my-2 leading-normal">
+          We make travel simple and memorable. Explore dream destinations with
+          zero stress.
+        </p>
+  <div className="block sm:hidden w-full my-8 ">
+        <div className="h-px sm:hidden block w-full bg-linear-to-r from-transparent via-black to-transparent"></div>
+      </div>
+        {/* Embla viewport */}
+        <div className="overflow-hidden mt-12" ref={emblaRef}>
+          <div className="flex gap-6">
+            {reviews.map((_, i) => (
+              <div
+                key={i}
+                className="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] rounded-xl px-6 py-8 min-w-[320px] md:min-w-[400px] border border-gray-200"
+              >
+                {/* stars */}
+                <div className="flex gap-1 mb-4">
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <AiFillStar key={n} className="text-yellow-400" />
+                  ))}
+                </div>
 
+                <p className="text-[14px] text-gray-800 leading-[1.45]">
+                  “I have been extremely happy with the results of working with
+                  the creative agency, and I would highly recommend them…”
+                </p>
+
+                <div className="flex items-center justify-between mt-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full overflow-hidden relative">
+                      <Image
+                        src="/assets/hero.jpg"
+                        fill
+                        alt="User"
+                        className="object-cover"
+                      />
+                    </div>
+                    <p className="text-[14px] text-black font-medium">
+                      Sujood Qureshi
+                    </p>
+                  </div>
+                  <button className="rounded-full border px-4 py-2 text-[13px] text-black transition">
+                    Read More
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* NAVIGATION BUTTONS */}
+        <div className="mt-8 flex justify-center items-center gap-4">
+          <div
+            className="p-2 border rounded-full cursor-pointer border-black text-black transition"
+            onClick={scrollPrev}
+          >
+            <IoArrowBack size={20} />
+          </div>
+          <div
+            className="p-2 border rounded-full cursor-pointer border-black text-black transition"
+            onClick={scrollNext}
+          >
+            <IoArrowForward size={20} />
+          </div>
+        </div>
       </div>
     </section>
   );

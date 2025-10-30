@@ -12,7 +12,7 @@ import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <main className="bg-white">
+    <main className="bg-white pb-14 md:pb-0">
       {" "}
       <footer className="bg-[#f9f6ee]  rounded-t-[50px] text-black">
         <div className=" max-container py-12">
@@ -255,7 +255,6 @@ const Footer = () => {
           {/* Mobile View with Accordion */}
           <div className="md:hidden">
             <Accordion type="single" collapsible className="w-full">
-              {/* Contact Accordion */}
               <AccordionItem value="contact">
                 <AccordionTrigger className="text-lg font-semibold">
                   Contact
@@ -276,8 +275,6 @@ const Footer = () => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
-
-              {/* Quick Links Accordion */}
               <AccordionItem value="quick-links">
                 <AccordionTrigger className="text-lg font-semibold">
                   Quick Links
@@ -486,23 +483,23 @@ const Footer = () => {
           </div>
 
           {/* Social Media Links */}
-          <div className="w-full my-8">
+          <div className="w-full  my-8">
             <div className="h-px w-full bg-[linear-gradient(to_right,transparent,#222222,transparent)] opacity-80"></div>
           </div>
-          <div className="flex flex-col-reverse md:flex-row justify-between items-center mt-6 bg-[#222222] text-white px-6 py-5 rounded-sm sm:rounded-xl">
+          <div className="flex  flex-col-reverse  md:flex-row justify-between items-center mt-6 bg-[#222222] text-white sm:px-4 py-5 rounded-sm sm:rounded-xl">
             <p className="text-sm text-center md:text-left">
               © {new Date().getFullYear()} All rights reserved. Tripzee
               Holidays.
             </p>
-            <div className="block sm:hidden w-full my-4">
+            <div className="block sm:hidden  w-full my-4">
               <div className="h-px w-full bg-[linear-gradient(to_right,transparent,#ffffff,transparent)] opacity-80"></div>
             </div>
-            <div className="flex gap-2 mt-2 md:mt-0">
+            <div className="flex  gap-3 sm:gap-2 mt-2 md:mt-0">
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 border border-white  px-3 py-1.5 rounded-full hover:bg-gray-800 transition"
+                className="flex items-center gap-2 border border-white text-sm sm:text-lg  px-2 py-1.5 rounded-full hover:bg-gray-800 transition"
               >
                 <FaInstagram /> Instagram
               </a>
@@ -510,7 +507,7 @@ const Footer = () => {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 border border-white  px-3 py-1.5 rounded-full hover:bg-gray-800 transition"
+                className="flex items-center gap-2 border border-white  text-sm sm:text-lg px-2  py-1.5 rounded-full hover:bg-gray-800 transition"
               >
                 <FaFacebook /> Facebook
               </a>
@@ -518,7 +515,7 @@ const Footer = () => {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 border border-white px-3 py-1.5 rounded-full hover:bg-gray-800 transition"
+                className="flex items-center gap-2 border border-white text-sm  px-2  sm:text-lg py-1.5 rounded-full hover:bg-gray-800 transition"
               >
                 <FaTwitter /> Twitter
               </a>
