@@ -1,40 +1,52 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import DestinationCard, { demoDestinations } from "../cards/destination-card";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+
+const OPTIONS = {
+  loop: true,
+  align: "start" as const,
+  dragFree: true,
+  slidesToScroll: 1,
+};
 
 export default function DestinationSlider() {
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      loop: true,
-      align: "start",
-      breakpoints: {
-        "(min-width: 200px)": { slidesToScroll: 1 },
-        "(min-width: 350px)": { slidesToScroll: 1 },
-        "(min-width: 420px)": { slidesToScroll: 1 },
-        "(min-width: 500px)": { slidesToScroll: 1 },
-        "(min-width: 550px)": { slidesToScroll: 1 },
-        "(min-width: 650px)": { slidesToScroll: 1 },
-        "(min-width: 750px)": { slidesToScroll: 1 },
-        "(min-width: 850px)": { slidesToScroll: 1 },
-        "(min-width: 1000px)": { slidesToScroll: 1 },
-        "(min-width: 1200px)": { slidesToScroll: 1 },
-        "(min-width: 1400px)": { slidesToScroll: 1 },
-      },
-    },
-    [WheelGesturesPlugin({ forceWheelAxis: "x" })]
-  );
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
+  const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
 
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
+  const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS, [
+    WheelGesturesPlugin({ forceWheelAxis: "x" }),
+  ]);
+
+  const onScroll = useCallback(() => {
+    if (!emblaApi) return;
+
+    const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()));
+    setScrollProgress(progress);
+
+    // Update button states
+    setPrevBtnEnabled(emblaApi.canScrollPrev());
+    setNextBtnEnabled(emblaApi.canScrollNext());
   }, [emblaApi]);
 
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    onScroll();
+    emblaApi.on("scroll", onScroll);
+    emblaApi.on("reInit", onScroll);
+
+    return () => {
+      emblaApi.off("scroll", onScroll);
+      emblaApi.off("reInit", onScroll);
+    };
+  }, [emblaApi, onScroll]);
+
+
+ 
 
   return (
     <div className="relative h-full w-full">
@@ -48,25 +60,26 @@ export default function DestinationSlider() {
               <DestinationCard
                 title={destination.attributes.title}
                 packages={destination.attributes.packages}
-                duration={destination.attributes.duration}
                 image={destination.attributes.image}
               />
             </div>
           ))}
         </div>
       </div>
-      <div className="mt-8 flex justify-center items-center gap-4">
-        <div
-          className="p-2 border rounded-full cursor-pointer border-black text-black transition"
-          onClick={scrollPrev}
-        >
-          <ArrowLeft size={20} />
-        </div>
-        <div
-          className="p-2 border rounded-full cursor-pointer border-black text-black transition"
-          onClick={scrollNext}
-        >
-          <ArrowRight size={20} />
+
+      <div className="mt-8 flex flex-col items-center gap-6">
+       
+        {/* Progress Bar */}
+        <div className="w-full max-w-64 px-4">
+          <div className="h-1 bg-gray-200 rounded-full relative overflow-hidden">
+            <div
+              className="h-full bg-black rounded-full transition-transform duration-300 ease-out"
+              style={{
+                transform: `translateX(${(scrollProgress - 1) * 100}%)`,
+                width: "100%",
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

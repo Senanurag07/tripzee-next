@@ -28,7 +28,7 @@ export default function DestinationCategories() {
 
   return (
     <main className="bg-white max-container">
-      <section className="w-full bg-white max-w-[1400px] mx-auto py-12">
+      <section className="w-full bg-white max-w-[1400px] mx-auto py-10">
         {/* Title */}
         <h2 className="text-[28px] md:text-[42px] font-bold mb-4 md:mb-6 text-black">
           Explore Destinations

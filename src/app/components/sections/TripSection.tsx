@@ -30,7 +30,7 @@ async function TripSection({ title, width = 20 }: TripSectionProps) {
   if (!result?.data?.length) return null;
 
   return (
-    <section className="lg:py-10 max-container bg-white relative">
+    <section className="lg:py-8 max-container bg-white relative">
       <div className="flex justify-between items-center mb-8">
         <CustomLabel label={title} width={width} />
       </div>

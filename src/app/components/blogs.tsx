@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
-import { useCallback } from "react";
+import { useEffect, useState } from "react";
 
 const blogs = [
   {
@@ -22,7 +22,8 @@ const blogs = [
     title: "How to Pick the Perfect Stay for Any Trip",
     desc: "From budget to luxury, find accommodations that suit your travel style.",
     img: "/assets/hero.jpg",
-  },{
+  },
+  {
     id: 1,
     title: "How to Pick the Perfect Stay for Any Trip",
     desc: "From budget to luxury, find accommodations that suit your travel style.",
@@ -39,7 +40,8 @@ const blogs = [
     title: "How to Pick the Perfect Stay for Any Trip",
     desc: "From budget to luxury, find accommodations that suit your travel style.",
     img: "/assets/hero.jpg",
-  },{
+  },
+  {
     id: 1,
     title: "How to Pick the Perfect Stay for Any Trip",
     desc: "From budget to luxury, find accommodations that suit your travel style.",
@@ -60,18 +62,27 @@ const blogs = [
 ];
 
 export default function BlogStories() {
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
-  const scrollPrev = useCallback(() => {
-    emblaApi && emblaApi.scrollPrev();
-  }, [emblaApi]);
+  useEffect(() => {
+    if (!emblaApi) return;
 
-  const scrollNext = useCallback(() => {
-    emblaApi && emblaApi.scrollNext();
+    const onScroll = () => {
+      const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()));
+      setScrollProgress(progress);
+    };
+
+    emblaApi.on("scroll", onScroll);
+    onScroll();
+
+    return () => {
+      emblaApi.off("scroll", onScroll);
+    };
   }, [emblaApi]);
 
   return (
-    <main className="bg-white max-container py-8">
+    <main className="bg-white max-container py-6">
       <section className="w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-0">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -121,21 +132,18 @@ export default function BlogStories() {
             </div>
           </div>
 
-          {/* Controls */}
-        <div className="mt-8 flex justify-center items-center gap-4">
-        <div
-          className="p-2 border rounded-full cursor-pointer border-black text-black transition"
-          onClick={scrollPrev}
-        >
-          <ArrowLeft size={20} />
-        </div>
-        <div
-          className="p-2 border rounded-full cursor-pointer border-black text-black transition"
-          onClick={scrollNext}
-        >
-          <ArrowRight size={20} />
-        </div>
-      </div>
+          {/* Progress Bar */}
+          <div className="mt-6 px-4 max-w-[500px] mx-auto">
+            <div className="h-1 bg-gray-200 rounded-full relative overflow-hidden">
+              <div
+                className="h-full bg-black rounded-full transition-transform duration-300 ease-out absolute left-0 top-0"
+                style={{
+                  transform: `translateX(${(scrollProgress - 1) * 100}%)`,
+                  width: "100%",
+                }}
+              />
+            </div>
+          </div>
         </div>
       </section>
     </main>

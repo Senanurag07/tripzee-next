@@ -16,7 +16,7 @@ const cards = [
 
 export default function ExploreMore() {
   return (
-    <section className="w-full max-container bg-white py-12">
+    <section className="w-full max-container bg-white py-10">
       <h2 className="text-3xl font-bold mb-10 text-black ">Explore More</h2>
 
       <div className="max-w-7xl  mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8 ">

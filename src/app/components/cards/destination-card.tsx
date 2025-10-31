@@ -8,7 +8,7 @@ export const demoDestinations = [
       title: "KERALA",
       packages: 2,
       duration: "8 Days / 7 Nights",
-      image: "/assets/hero.jpg",
+      image: "/assets/tripppppdesti.webp",
       position: 1,
     },
   },
@@ -18,7 +18,7 @@ export const demoDestinations = [
       title: "GOA",
       packages: 3,
       duration: "5 Days / 4 Nights",
-      image: "/assets/hero.jpg",
+      image: "/assets/tripppppdesti.webp",
       position: 2,
     },
   },
@@ -28,7 +28,7 @@ export const demoDestinations = [
       title: "RAJASTHAN",
       packages: 4,
       duration: "7 Days / 6 Nights",
-      image: "/assets/hero.jpg",
+      image: "/assets/tripppppdesti.webp",
       position: 3,
     },
   },
@@ -38,7 +38,7 @@ export const demoDestinations = [
       title: "KASHMIR",
       packages: 5,
       duration: "6 Days / 5 Nights",
-      image: "/assets/hero.jpg",
+      image: "/assets/tripppppdesti.webp",
       position: 4,
     },
   },
@@ -78,7 +78,7 @@ export const demoDestinations = [
       title: "ANDAMAN",
       packages: 3,
       duration: "6 Days / 5 Nights",
-      image: "/assets/hero.jpg",
+      image: "/assets/tripppppdesti.webp",
       position: 8,
     },
   },
@@ -87,14 +87,12 @@ export const demoDestinations = [
 interface DestinationCardProps {
   title: string;
   packages: number;
-  duration: string;
   image: string;
 }
 
 const DestinationCard = ({
   title,
   packages,
-  duration,
   image,
 }: DestinationCardProps) => {
   return (
@@ -113,13 +111,9 @@ const DestinationCard = ({
         {packages.toString().padStart(2, "0")} Packages
       </div>
 
-      <h2 className="absolute top-16 left-4 text-5xl font-extrabold tracking-widest text-[#D3F238] drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] z-10">
-        {title}
-      </h2>
+   
 
-      <div className="absolute top-32 left-4 bg-[#FFE97B] text-black px-2 py-[3px] rounded-md text-[12px] font-bold shadow z-10">
-        {duration}
-      </div>
+    x
 
       {/* Hover Button */}
       <div

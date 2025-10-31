@@ -1,9 +1,8 @@
 "use client";
 import Image from "next/image";
-import React, { useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { BsShieldCheck, BsPeople, BsGift, BsHeadset } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
-import { IoArrowBack, IoArrowForward } from "react-icons/io5";
 import useEmblaCarousel from "embla-carousel-react";
 
 export default function WhyTripzeeSection() {
@@ -33,14 +32,23 @@ export default function WhyTripzeeSection() {
   const reviews = [1, 2, 3, 4, 5]; // add more to see scroll properly
 
   // ✅ Embla
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
+  useEffect(() => {
+    if (!emblaApi) return;
 
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
+    const onScroll = () => {
+      const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()));
+      setScrollProgress(progress);
+    };
+
+    emblaApi.on("scroll", onScroll);
+    onScroll();
+
+    return () => {
+      emblaApi.off("scroll", onScroll);
+    };
   }, [emblaApi]);
 
   return (
@@ -132,7 +140,6 @@ export default function WhyTripzeeSection() {
         </div>
       </div>
 
-    
       <div className="mt-12 ">
         <h2 className="text-[32px] text-black font-bold tracking-tight">
           Bucket List Experiences
@@ -141,9 +148,9 @@ export default function WhyTripzeeSection() {
           We make travel simple and memorable. Explore dream destinations with
           zero stress.
         </p>
-  <div className="block sm:hidden w-full my-8 ">
-        <div className="h-px sm:hidden block w-full bg-linear-to-r from-transparent via-black to-transparent"></div>
-      </div>
+        <div className="block sm:hidden w-full my-8 ">
+          <div className="h-px sm:hidden block w-full bg-linear-to-r from-transparent via-black to-transparent"></div>
+        </div>
         {/* Embla viewport */}
         <div className="overflow-hidden mt-12" ref={emblaRef}>
           <div className="flex gap-6">
@@ -187,19 +194,16 @@ export default function WhyTripzeeSection() {
           </div>
         </div>
 
-        {/* NAVIGATION BUTTONS */}
-        <div className="mt-8 flex justify-center items-center gap-4">
-          <div
-            className="p-2 border rounded-full cursor-pointer border-black text-black transition"
-            onClick={scrollPrev}
-          >
-            <IoArrowBack size={20} />
-          </div>
-          <div
-            className="p-2 border rounded-full cursor-pointer border-black text-black transition"
-            onClick={scrollNext}
-          >
-            <IoArrowForward size={20} />
+        {/* Progress Bar */}
+        <div className="mt-6 px-4 max-w-[500px] mx-auto">
+          <div className="h-1 bg-gray-200 rounded-full relative overflow-hidden">
+            <div
+              className="h-full bg-black rounded-full transition-transform duration-300 ease-out absolute left-0 top-0"
+              style={{
+                transform: `translateX(${(scrollProgress - 1) * 100}%)`,
+                width: "100%",
+              }}
+            />
           </div>
         </div>
       </div>

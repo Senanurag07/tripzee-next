@@ -4,8 +4,6 @@ import useEmblaCarousel from "embla-carousel-react";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import Image from "next/image";
 import { HiVolumeOff, HiVolumeUp } from "react-icons/hi";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-
 export default function ReelsCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -18,42 +16,79 @@ export default function ReelsCarousel() {
   );
 
   const videosRef = useRef<Array<HTMLVideoElement | null>>([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   const reels = [
-    { id: 1, video: "/reels/IMG_4185.MOV", poster: "/assets/reel-poster-1.jpg" },
-    { id: 2, video: "/reels/IMG_4185.MOV", poster: "/assets/reel-poster-2.jpg" },
-    { id: 3, video: "/reels/IMG_4185.MOV", poster: "/assets/reel-poster-3.jpg" },
-    { id: 4, video: "/reels/reel2.mp4", poster: "/assets/reel-poster-4.jpg" },
-    { id: 5, video: "/reels/reel3.mp4", poster: "/assets/reel-poster-5.jpg" },
-    { id: 6, video: "/reels/reel4.mp4", poster: "/assets/reel-poster-6.jpg" },
-    { id: 7, video: "/reels/reel5.mp4", poster: "/assets/reel-poster-7.jpg" },
+    {
+      id: 1,
+      video: "/reels/reelstrp.MP4",
+      poster: "/assets/reel-poster-1.jpg",
+    },
+    {
+      id: 2,
+      video: "/reels/reeltr.MP4",
+      poster: "/assets/reel-poster-2.jpg",
+    },
+    {
+      id: 3,
+      video: "/reels/reelstrp.MP4",
+      poster: "/assets/reel-poster-3.jpg",
+    },
+    {
+      id: 4,
+      video: "/reels/reelstrp.MP4",
+      poster: "/assets/reel-poster-4.jpg",
+    },
+    {
+      id: 5,
+      video: "/reels/reelstrp.MP4",
+      poster: "/assets/reel-poster-5.jpg",
+    },
+    {
+      id: 6,
+      video: "/reels/reelstrp.MP4",
+      poster: "/assets/reel-poster-6.jpg",
+    },
+    {
+      id: 7,
+      video: "/reels/reelstrp.MP4",
+      poster: "/assets/reel-poster-7.jpg",
+    },
   ];
 
   // ✅ Global mute state
   const [isMuted, setIsMuted] = useState(true);
 
-  const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(false);
-
   useEffect(() => {
     if (!emblaApi) return;
-    const update = () => {
-      setCanPrev(Boolean(emblaApi.canScrollPrev()));
-      setCanNext(Boolean(emblaApi.canScrollNext()));
+
+    const onSelect = () => {
+      const selectedIndex = emblaApi.selectedScrollSnap();
+      setCurrentSlide(selectedIndex);
     };
-    emblaApi.on("select", update);
-    emblaApi.on("init", update);
-    emblaApi.on("reInit", update);
-    update();
+
+    const onInit = () => {
+      setCurrentSlide(0);
+      playIndex(0);
+    };
+
+    emblaApi.on("select", onSelect);
+    emblaApi.on("init", onInit);
+
     return () => {
-      emblaApi.off("select", update);
-      emblaApi.off("init", update);
-      emblaApi.off("reInit", update);
+      emblaApi.off("select", onSelect);
+      emblaApi.off("init", onInit);
     };
   }, [emblaApi]);
 
   const pauseAll = useCallback(() => {
-    videosRef.current.forEach((v) => v && v.pause());
+    videosRef.current.forEach((v) => {
+      if (v) {
+        v.pause();
+        setIsPaused(true);
+      }
+    });
   }, []);
 
   const playIndex = useCallback(
@@ -63,37 +98,37 @@ export default function ReelsCarousel() {
       if (!vid) return;
       try {
         await vid.play();
-      } catch {}
+        setIsPaused(false);
+      } catch (error) {
+        console.error("Failed to play video:", error);
+      }
     },
     [pauseAll]
   );
 
-  useEffect(() => {
-    if (!emblaApi) return;
-    const handleSelect = () => {
-      playIndex(emblaApi.selectedScrollSnap());
-    };
-    emblaApi.on("select", handleSelect);
-    emblaApi.on("settle", handleSelect);
-    handleSelect();
-    return () => {
-      emblaApi.off("select", handleSelect);
-      emblaApi.off("settle", handleSelect);
-    };
-  }, [emblaApi, playIndex]);
+  const togglePlayPause = useCallback(
+    (index: number) => {
+      const vid = videosRef.current[index];
+      if (!vid) return;
+
+      if (vid.paused) {
+        playIndex(index);
+      } else {
+        vid.pause();
+        setIsPaused(true);
+      }
+    },
+    [playIndex]
+  );
 
   const handleEnded = useCallback(() => {
-    if (!emblaApi) return;
-    emblaApi.canScrollNext() && emblaApi.scrollNext();
-  }, [emblaApi]);
-
-  const scrollPrev = useCallback(() => {
-    emblaApi && emblaApi.canScrollPrev() && emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    emblaApi && emblaApi.canScrollNext() && emblaApi.scrollNext();
-  }, [emblaApi]);
+    if (!emblaApi || !emblaApi.canScrollNext()) return;
+    emblaApi.scrollNext();
+    const nextIndex = emblaApi.selectedScrollSnap() + 1;
+    if (nextIndex < reels.length) {
+      playIndex(nextIndex);
+    }
+  }, [emblaApi, playIndex, reels.length]);
 
   // ✅ Toggle ALL videos
   const toggleMute = () => {
@@ -112,27 +147,23 @@ export default function ReelsCarousel() {
   const handleVideoClick = useCallback(
     (index: number) => {
       if (!emblaApi) {
-        const v = videosRef.current[index];
-        if (!v) return;
-        v.paused ? v.play() : v.pause();
+        togglePlayPause(index);
         return;
       }
       const selected = emblaApi.selectedScrollSnap();
       if (selected !== index) {
         emblaApi.scrollTo(index);
       } else {
-        const v = videosRef.current[index];
-        if (!v) return;
-        v.paused ? v.play() : v.pause();
+        togglePlayPause(index);
       }
     },
-    [emblaApi]
+    [emblaApi, togglePlayPause]
   );
 
   useEffect(() => () => pauseAll(), [pauseAll]);
 
   return (
-    <section className="w-full sm:block hidden max-container bg-white py-2 md:py-16 relative">
+    <section className="w-full sm:block hidden max-container bg-white py-2  relative">
       <h2 className="text-3xl font-bold mb-6 text-black px-4">
         Live the Adventure
       </h2>
@@ -172,7 +203,9 @@ export default function ReelsCarousel() {
               )}
 
               <video
-                ref={(el) => { videosRef.current[i] = el; }}
+                ref={(el) => {
+                  videosRef.current[i] = el;
+                }}
                 src={item.video}
                 loop
                 muted={isMuted}
@@ -200,27 +233,20 @@ export default function ReelsCarousel() {
         </div>
       </div>
 
-      {/* Pagination */}
-      <div className="mt-8 flex justify-center items-center gap-4">
-  <div
-    className={`p-2 border rounded-full cursor-pointer transition ${
-      canPrev ? "border-black text-black" : "border-gray-300 text-gray-300 cursor-not-allowed"
-    }`}
-    onClick={canPrev ? scrollPrev : undefined}
-  >
-    <ArrowLeft size={20} />
-  </div>
-
-  <div
-    className={`p-2 border rounded-full cursor-pointer transition ${
-      canNext ? "border-black text-black" : "border-gray-300 text-gray-300 cursor-not-allowed"
-    }`}
-    onClick={canNext ? scrollNext : undefined}
-  >
-    <ArrowRight size={20} />
-  </div>
-</div>
-
+      {/* Progress Bar */}
+      <div className="mt-6 px-4 max-w-[500px] mx-auto">
+        <div className="h-1 bg-gray-200 rounded-full relative overflow-hidden">
+          <div
+            className="h-full bg-black rounded-full transition-transform duration-300 ease-out absolute left-0 top-0"
+            style={{
+              width: `${
+                ((emblaApi?.selectedScrollSnap() || 0) / (reels.length - 1)) *
+                100
+              }%`,
+            }}
+          />
+        </div>
+      </div>
     </section>
   );
 }

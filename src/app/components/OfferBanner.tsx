@@ -6,7 +6,7 @@ import Image from "next/image";
 import useInterval from "@/hooks/use-interval";
 
 const OfferBanner = () => {
-  const [autoplayDelay, setAutoplayDelay] = useState<number | null>(2000);
+  const [autoplayDelay, setAutoplayDelay] = useState<number | null>(3000);
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
@@ -29,11 +29,27 @@ const OfferBanner = () => {
   }, []);
 
   const handleMouseLeave = useCallback(() => {
-    setAutoplayDelay(2000);
+    setAutoplayDelay(3000);
   }, []);
 
   const banners = [
     {
+      id: 1,
+      img: "/assets/hero.jpg",
+    },
+    {
+      id: 1,
+      img: "/assets/hero.jpg",
+    },{
+      id: 1,
+      img: "/assets/hero.jpg",
+    },{
+      id: 1,
+      img: "/assets/hero.jpg",
+    },{
+      id: 1,
+      img: "/assets/hero.jpg",
+    },{
       id: 1,
       img: "/assets/hero.jpg",
     },
@@ -48,52 +64,34 @@ const OfferBanner = () => {
   ];
 
   return (
-    <section className="relative max-container bg-white w-full py-4 overflow-hidden">
-      <div
-        className="overflow-hidden rounded-2xl"
-        ref={emblaRef}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <div className="flex">
-          {banners.map((banner) => (
-            <div key={banner.id} className="flex-[0_0_100%] min-w-0">
-              <div className="relative w-full h-[220px] sm:h-[350px] md:h-[400px] rounded-2xl overflow-hidden">
-                <Image
-                  src={banner.img}
-                  alt={`Offer ${banner.id}`}
-                  fill
-                  className="object-cover rounded-2xl"
-                  priority
-                />
-
-                {/* Overlay Content */}
-                <div className="absolute inset-0 bg-linear-to-t from-[#00000099] to-transparent flex flex-col items-center justify-center text-center px-4">
-                  <p className="text-white text-sm sm:text-base font-medium">
-                    Exclusive <span className="text-yellow-400">Deepawali</span>{" "}
-                    Deals on Tours & Packages
-                  </p>
-                  <h1 className="text-yellow-400 text-5xl sm:text-6xl md:text-7xl font-extrabold mt-2">
-                    1000{" "}
-                    <span className="text-white italic text-4xl sm:text-5xl ml-1">
-                      Sale
-                    </span>
-                  </h1>
-                  <p className="text-white mt-3 text-sm sm:text-base">
-                    Enjoy{" "}
-                    <span className="text-yellow-400 font-semibold">
-                      ₹1000 OFF
-                    </span>{" "}
-                    on Every Package – Hurry, Offer Valid{" "}
-                    <span className="font-semibold">5th – 25th Oct Only</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+    <section className="relative bg-white w-full py-2 overflow-hidden">
+  <div
+    className="overflow-visible rounded-2xl"
+    ref={emblaRef}
+    onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}
+  >
+    <div className="flex gap-4 px-4">
+      {banners.map((banner) => (
+        <div
+          key={banner.id}
+          className="flex-[0_0_110%] sm:flex-[100%] md:flex-[0_0_92%] min-w-0 transition-transform"
+        >
+          <div className="relative w-full h-[200px] sm:h-[330px] md:h-[364px] sm:rounded-2xl shadow-md overflow-hidden">
+            <Image
+              src={banner.img}
+              alt={`Offer ${banner.id}`}
+              fill
+              className="object-cover "
+              priority
+            />
+          </div>
         </div>
-      </div>
-    </section>
+      ))}
+    </div>
+  </div>
+</section>
+
   );
 };
 

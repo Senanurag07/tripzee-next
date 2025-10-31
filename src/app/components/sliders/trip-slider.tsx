@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import TripCard from "../cards/trip-cards";
 
 interface TripSliderProps {
@@ -20,10 +19,11 @@ interface TripSliderProps {
   }[];
 }
 
-export default function  TripSlider({ data }: TripSliderProps) {
+export default function TripSlider({ data }: TripSliderProps) {
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
-      loop: true,
+      loop: false,
       align: "start",
       breakpoints: {
         "(min-width: 200px)": { slidesToScroll: 1 },
@@ -42,14 +42,21 @@ export default function  TripSlider({ data }: TripSliderProps) {
     [WheelGesturesPlugin({ forceWheelAxis: "x" })]
   );
 
-  const scrollPrev = useCallback(
-    () => emblaApi && emblaApi.scrollPrev(),
-    [emblaApi]
-  );
-  const scrollNext = useCallback(
-    () => emblaApi && emblaApi.scrollNext(),
-    [emblaApi]
-  );
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const onScroll = () => {
+      const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()));
+      setScrollProgress(progress);
+    };
+
+    emblaApi.on("scroll", onScroll);
+    onScroll();
+
+    return () => {
+      emblaApi.off("scroll", onScroll);
+    };
+  }, [emblaApi]);
 
   return (
     <div className="relative h-full w-full">
@@ -74,18 +81,16 @@ export default function  TripSlider({ data }: TripSliderProps) {
           ))}
         </div>
       </div>
-      <div className="mt-8 flex justify-center items-center gap-4">
-        <div
-          className="p-2 border rounded-full cursor-pointer border-black text-black transition"
-          onClick={scrollPrev}
-        >
-          <ArrowLeft size={20} />
-        </div>
-        <div
-          className="p-2 border rounded-full cursor-pointer border-black text-black transition"
-          onClick={scrollNext}
-        >
-          <ArrowRight size={20} />
+      {/* Progress Bar */}
+      <div className="mt-6 px-4 max-w-[500px] mx-auto">
+        <div className="h-1 bg-gray-200 rounded-full relative overflow-hidden">
+          <div
+            className="h-full bg-black rounded-full transition-transform duration-300 ease-out absolute left-0 top-0"
+            style={{
+              transform: `translateX(${(scrollProgress - 1) * 100}%)`,
+              width: "100%",
+            }}
+          />
         </div>
       </div>
     </div>
