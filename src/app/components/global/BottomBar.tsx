@@ -20,7 +20,7 @@ export default function BottomBar() {
 
   return (
     <div className="
-      md:hidden
+      xl:hidden
       fixed bottom-0 left-0 right-0
       z-30 bg-black text-white
       h-20 rounded-t-2xl

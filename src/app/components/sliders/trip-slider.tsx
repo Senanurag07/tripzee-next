@@ -60,12 +60,12 @@ export default function TripSlider({ data }: TripSliderProps) {
 
   return (
     <div className="relative h-full w-full">
-      <div className="overflow-hidden" ref={emblaRef}>
+      <div className="" ref={emblaRef}>
         <div className="flex -ml-3 sm:-ml-4 lg:-ml-6">
           {data.map((trip, index) => (
             <div
               key={index}
-              className="flex-[0_0_100%] pl-3 sm:pl-4 lg:pl-6 min-[350px]:flex-[0_0_66.666%] min-[650px]:flex-[0_0_40%] min-[850px]:flex-[0_0_33.333%] min-[1400px]:flex-[0_0_25%]"
+              className="flex-[0_0_100%] pl-3 sm:pl-4 lg:pl-6 min-[350px]:flex-[0_0_66.666%] min-[650px]:flex-[0_0_40%] min-[850px]:flex-[0_0_33.333%] min-[1400px]:flex-[0_0_22%]"
             >
               <TripCard
                 image={trip.image}
@@ -82,8 +82,8 @@ export default function TripSlider({ data }: TripSliderProps) {
         </div>
       </div>
       {/* Progress Bar */}
-      <div className="mt-6 px-4 max-w-[500px] mx-auto">
-        <div className="h-1 bg-gray-200 rounded-full relative overflow-hidden">
+      <div className="mt-6 px-4 max-w-[300px] mx-auto">
+        <div className="h-0.5 bg-gray-200 rounded-xl relative overflow-hidden">
           <div
             className="h-full bg-black rounded-full transition-transform duration-300 ease-out absolute left-0 top-0"
             style={{

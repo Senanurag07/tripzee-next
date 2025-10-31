@@ -234,8 +234,8 @@ export default function ReelsCarousel() {
       </div>
 
       {/* Progress Bar */}
-      <div className="mt-6 px-4 max-w-[500px] mx-auto">
-        <div className="h-1 bg-gray-200 rounded-full relative overflow-hidden">
+      <div className="mt-6 px-4 max-w-[300px] mx-auto">
+        <div className="h-0.5 bg-gray-200 rounded-full relative overflow-hidden">
           <div
             className="h-full bg-black rounded-full transition-transform duration-300 ease-out absolute left-0 top-0"
             style={{

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 
 export const demoDestinations = [
   {
@@ -96,7 +95,7 @@ const DestinationCard = ({
   image,
 }: DestinationCardProps) => {
   return (
-    <div className="group relative flex flex-col items-start w-[302px] h-[380px] p-2 gap-2.5 flex-shrink-0 overflow-hidden rounded-xl shadow-lg cursor-pointer">
+    <div className="group relative flex flex-col items-start w-[296px] h-[364px] p-2 gap-2.5 shrink-0 overflow-hidden rounded-[12px] shadow-lg cursor-pointer">
       {/* Image */}
       <Image
         src={image}
@@ -118,8 +117,8 @@ const DestinationCard = ({
       {/* Hover Button */}
       <div
         className="
-          absolute bottom-4 left-1/2 -translate-x-1/2 w-[85%]
-          bg-[#FFE926] text-black font-bold py-2.5 rounded-lg text-center
+          absolute bottom-3 left-1/2 -translate-x-1/2 w-[92%]
+          bg-white text-black font-bold py-2 rounded-[5px] text-center
           opacity-0 translate-y-4
           transition-all duration-500 ease-out
           group-hover:opacity-100 group-hover:translate-y-0
@@ -130,7 +129,7 @@ const DestinationCard = ({
       </div>
 
       {/* Bottom Gradient Fade */}
-      <div className="absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-10"></div>
+      <div className="absolute inset-x-0 bottom-0 h-[35%] bg-linear-to-t from-black/60 to-transparent pointer-events-none z-10"></div>
     </div>
   );
 };

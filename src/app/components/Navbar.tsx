@@ -28,25 +28,31 @@ interface PhoneButtonProps {
 }
 
 const PhoneButton = ({ mobile = false }: PhoneButtonProps) => (
-  <div
-    className={`flex items-center ${
+ <div
+  className={`
+    ${mobile ? "hidden md:flex" : "hidden md:flex"}  
+    items-center
+    ${
       mobile
-        ? "p-2 bg-yellow-100 rounded-full border border-yellow-300"
-        : "bg-yellow-100 text-black px-3 py-1.5 rounded-md font-medium text-sm border border-yellow-200"
-    }`}
-  >
-    <PhoneIcon
-      className={`${mobile ? "w-5 h-5" : "w-4 h-4 mr-2"} text-yellow-600`}
-    />
-    {!mobile && (
-      <>
-        <span className="text-gray-700">(+91)</span>
-        <span className="ml-1 whitespace-nowrap font-semibold">
-          93106 52154
-        </span>
-      </>
-    )}
-  </div>
+        ? "bg-yellow-100 rounded-full border border-yellow-300 px-2 py-0.5" /* reduced vertical padding */
+        : "bg-yellow-100 text-black px-2 my-2.5 rounded-md font-medium text-sm border border-yellow-200 "
+    }
+  `}
+>
+  <PhoneIcon
+    className={`${mobile ? "w-4 h-4" : "w-4 h-4 mr-2"} text-yellow-600`}
+  />
+
+  {!mobile && (
+    <>
+      <span className="text-gray-700">(+91)</span>
+      <span className="ml-1 whitespace-nowrap font-semibold">
+        93106 52154
+      </span>
+    </>
+  )}
+</div>
+
 );
 
 const Navbar = () => (
@@ -73,18 +79,20 @@ const Navbar = () => (
     </div>
     <nav className="w-full bg-white shadow-sm">
       <div className="max-container mx-auto flex items-center justify-between py-3 px-4 md:px-6">
-        <Image
-          src="/assets/tripzelogo.png"
-          alt="Tripzee Holidays"
-          width={120}
-          height={40}
-          className="object-contain"
-        />
-        <div className="hidden md:flex items-center space-x-6">
+        <div className="flex gap-3">
+          <Image
+            src="/assets/tripzelogo.png"
+            alt="Tripzee Holidays"
+            width={120}
+            height={40}
+            className="object-contain"
+          />
           <PhoneButton />
+        </div>
+        <div className="hidden  xl:flex items-center space-x-6">
           <NavigationMenuDemo />
         </div>
-        <div className="flex md:hidden items-center gap-3">
+        <div className="flex xl:hidden items-center gap-3">
           <a href="tel:+919310652154">
             <PhoneButton mobile />
           </a>

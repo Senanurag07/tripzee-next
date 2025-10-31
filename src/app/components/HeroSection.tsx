@@ -1,31 +1,15 @@
 "use client";
-import React, { useState } from "react";
-import useEmblaCarousel from "embla-carousel-react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 
 export default function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: false,
-    dragFree: false,
-    containScroll: "trimSnaps",
-    align: "start",
-    breakpoints: {
-      "(min-width: 768px)": { slidesToScroll: 2 },
-    },
-  });
-
-  React.useEffect(() => {
-    if (emblaApi) {
-      emblaApi.on("select", () => {
-        setActiveIndex(emblaApi.selectedScrollSnap());
-        setProgress(emblaApi.scrollProgress());
-      });
-    }
-  }, [emblaApi]);
+  const handleMouseEnter = useCallback(() => setIsPaused(true), []);
+  const handleMouseLeave = useCallback(() => setIsPaused(false), []);
 
   const slides = [
     {
@@ -34,17 +18,19 @@ export default function HeroSection() {
       desc: "Lorem ipsum dolor sit amet consectetur.",
       img: "/assets/hero.jpg",
     },
-     {
+    {
       id: 2,
       title: "Kerala",
       desc: "Lorem ipsum dolor sit amet consectetur.",
       img: "/assets/hero.jpg",
-    }, {
+    },
+    {
       id: 3,
       title: "Kerala",
       desc: "Lorem ipsum dolor sit amet consectetur.",
       img: "/assets/hero.jpg",
-    }, {
+    },
+    {
       id: 4,
       title: "Kerala",
       desc: "Lorem ipsum dolor sit amet consectetur.",
@@ -63,6 +49,22 @@ export default function HeroSection() {
       img: "/assets/hero.jpg",
     },
   ];
+
+  // Auto-scroll effect
+  useEffect(() => {
+    if (isPaused) return;
+
+    const totalSlides = slides.length;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => {
+        const nextIndex = (prev + 1) % totalSlides;
+        setProgress(nextIndex / (totalSlides - 1));
+        return nextIndex;
+      });
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, slides.length]);
 
   return (
     <section className="relative h-[72vh] md:h-[88vh] w-full overflow-hidden bg-black">
@@ -106,17 +108,26 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Embla Carousel Section (Bottom Left Fixed Position) */}
-        <div className="relative  w-full mt-8 lg:absolute lg:bottom-10 lg:left-190 lg:w-[600px]">
-          <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex gap-26 sm:gap-5">
+        {/* Auto-scrolling Carousel Section (Bottom Left Fixed Position) */}
+        <div
+          className="relative w-full mt-8 lg:absolute lg:bottom-10 lg:left-4/7 lg:-translate-x-5 lg:w-[600px]"
+        >
+          <div
+            className="overflow-hidden"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div
+              className="flex gap-22 sm:gap-5 transition-transform duration-500"
+              style={{ transform: `translateX(-${activeIndex * 50}%)` }}
+            >
               {slides.map((slide) => (
                 <div
                   key={slide.id}
-                  className="flex-[0_0_calc(50%-12px)] min-w-0 md:flex-[0_0_calc(50%-10px)]"
+                  className="flex-[0_0_calc(50%-10px)] min-w-0 md:flex-[0_0_calc(50%-20px)]"
                 >
-                  <div className="bg-white/10  w-3xs sm:w-full backdrop-blur-lg border border-white/20 rounded-2xl flex items-center gap-4 p-4 hover:bg-white/20 transition-all duration-300">
-                    <div className="shrink-0  w-20 border border-white h-20 overflow-hidden rounded-lg">
+                  <div className="bg-white/10 md:w-full w-3xs sm:w-full backdrop-blur-[1px] border border-white/20 rounded-2xl flex items-center gap-4 p-4 transition-all duration-300">
+                    <div className="shrink-0 w-20 border border-white h-20 overflow-hidden rounded-lg">
                       <Image
                         src={slide.img}
                         alt={slide.title}
@@ -137,7 +148,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 mt-5">
+          <div className="flex items-center max-w-xl gap-3 mt-5">
             <span className="text-white/90 font-medium text-sm tracking-wider min-w-[2ch]">
               {String(activeIndex + 1).padStart(2, "0")}
             </span>

@@ -27,7 +27,7 @@ export default function DestinationCategories() {
   const [activeTab, setActiveTab] = useState("all");
 
   return (
-    <main className="bg-white max-container">
+    <main className="bg-white max-container overflow-hidden">
       <section className="w-full bg-white max-w-[1400px] mx-auto py-10">
         {/* Title */}
         <h2 className="text-[28px] md:text-[42px] font-bold mb-4 md:mb-6 text-black">

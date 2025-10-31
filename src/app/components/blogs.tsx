@@ -83,7 +83,7 @@ export default function BlogStories() {
 
   return (
     <main className="bg-white max-container py-6">
-      <section className="w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-0">
+      <section className="w-full max-w-7xl mx-auto  md:px-6 lg:px-0">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-[28px] text-nowrap md:text-[40px] font-bold text-[#1C1C1C]">
@@ -105,7 +105,7 @@ export default function BlogStories() {
                   className="min-w-full sm:min-w-[60%] md:min-w-[45%] lg:min-w-[32%]"
                 >
                   {/* Image */}
-                  <div className="relative w-full h-[340px] sm:h-[370px] rounded-xl overflow-hidden">
+                  <div className="relative w-full h-[360px] sm:h-[370px] rounded-xl overflow-hidden">
                     <Image
                       src={blog.img}
                       alt={blog.title}
@@ -124,7 +124,7 @@ export default function BlogStories() {
                     {blog.title}
                   </h3>
 
-                  <p className="text-[#8B8B8B] text-[14px] mt-1 leading-[1.5]">
+                  <p className="text-[#8B8B8B] text-[14px] mt-1 leading-normal">
                     {blog.desc}
                   </p>
                 </div>
@@ -133,8 +133,8 @@ export default function BlogStories() {
           </div>
 
           {/* Progress Bar */}
-          <div className="mt-6 px-4 max-w-[500px] mx-auto">
-            <div className="h-1 bg-gray-200 rounded-full relative overflow-hidden">
+          <div className="mt-6 px-4 max-w-[300px] mx-auto">
+            <div className="h-0.5 bg-gray-200 rounded-full relative overflow-hidden">
               <div
                 className="h-full bg-black rounded-full transition-transform duration-300 ease-out absolute left-0 top-0"
                 style={{

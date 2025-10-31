@@ -103,7 +103,7 @@ export default function TripCard({
   badge,
 }: TripCardProps) {
   return (
-    <div className="relative  max-w-[300px] h-[400px] rounded-2xl overflow-hidden shadow-md border border-[#EAEAEA] group">
+    <div className="relative  max-w-[296px] h-[364px] rounded-2xl overflow-hidden shadow-md border border-[#EAEAEA] group">
       <div className="absolute inset-0 w-full h-full">
         <Image
           src={image}
@@ -119,7 +119,7 @@ export default function TripCard({
         <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent pointer-events-none"></div>
 
         {/* Top Section */}
-        <div className="relative space-y-4 flex flex-col justify-end h-full">
+        <div className="relative space-y-1 flex flex-col justify-end h-full">
           <p className="bg-[#FDDC39] w-26 text-nowrap text-black font-semibold text-[12px] px-4 py-1 rounded-full">
             {badge}
           </p>
@@ -141,7 +141,7 @@ export default function TripCard({
           </div>
 
           {/* Pricing */}
-          <div className="border-t border-white/30 pt-3 flex items-center gap-2">
+          <div className="border-t border-white/30 pt-1 flex items-center gap-2">
             <span className="text-sm opacity-80"> From</span>
             <span className="text-[18px] text-nowrap font-semibold">
               {price}

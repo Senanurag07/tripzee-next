@@ -6,7 +6,7 @@ import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import DestinationCard, { demoDestinations } from "../cards/destination-card";
 
 const OPTIONS = {
-  loop: true,
+  loop: false,
   align: "start" as const,
   dragFree: true,
   slidesToScroll: 1,
@@ -14,8 +14,8 @@ const OPTIONS = {
 
 export default function DestinationSlider() {
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
-  const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
+  const [, setPrevBtnEnabled] = useState(false);
+  const [, setNextBtnEnabled] = useState(false);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS, [
     WheelGesturesPlugin({ forceWheelAxis: "x" }),
@@ -50,12 +50,12 @@ export default function DestinationSlider() {
 
   return (
     <div className="relative h-full w-full">
-      <div className="overflow-hidden" ref={emblaRef}>
+      <div className="" ref={emblaRef}>
         <div className="flex -ml-3 sm:-ml-4 lg:-ml-6">
           {demoDestinations.map((destination) => (
             <div
               key={destination.id}
-              className="flex-[0_0_100%] pl-3 sm:pl-4 lg:pl-6 min-[350px]:flex-[0_0_66.666%] min-[650px]:flex-[0_0_40%] min-[850px]:flex-[0_0_33.333%] min-[1400px]:flex-[0_0_25%]"
+              className="flex-[0_0_100%] pl-4 sm:pl-4 lg:pl-4 min-[350px]:flex-[0_0_66.666%] min-[650px]:flex-[0_0_40%] min-[850px]:flex-[0_0_33.333%] min-[1400px]:flex-[0_0_24%]"
             >
               <DestinationCard
                 title={destination.attributes.title}
@@ -70,8 +70,8 @@ export default function DestinationSlider() {
       <div className="mt-8 flex flex-col items-center gap-6">
        
         {/* Progress Bar */}
-        <div className="w-full max-w-64 px-4">
-          <div className="h-1 bg-gray-200 rounded-full relative overflow-hidden">
+        <div className="w-full max-w-[300px] px-4">
+          <div className="h-0.5 bg-gray-200 rounded-full relative overflow-hidden">
             <div
               className="h-full bg-black rounded-full transition-transform duration-300 ease-out"
               style={{
