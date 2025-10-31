@@ -30,11 +30,11 @@ interface PhoneButtonProps {
 const PhoneButton = ({ mobile = false }: PhoneButtonProps) => (
  <div
   className={`
-    ${mobile ? "hidden md:flex" : "hidden md:flex"}  
+    ${mobile ? "flex" : "hidden md:flex"}  
     items-center
     ${
       mobile
-        ? "bg-yellow-100 rounded-full border border-yellow-300 px-2 py-0.5" /* reduced vertical padding */
+        ? "bg-yellow-100 rounded-full border border-yellow-300 px-2 py-2" /* reduced vertical padding */
         : "bg-yellow-100 text-black px-2 my-2.5 rounded-md font-medium text-sm border border-yellow-200 "
     }
   `}
