@@ -30,7 +30,9 @@ async function TripSection({ title, width = 20 }: TripSectionProps) {
   if (!result?.data?.length) return null;
 
   return (
-    <section className="lg:py-8 max-container overflow-hidden py-6 bg-white relative">
+    <main className="overflow-hidden bg-white" >
+
+    <section className="lg:py-8 max-container  py-6  relative">
       <div className="flex justify-between items-center mb-8">
         <CustomLabel label={title} width={width} />
       </div>
@@ -39,6 +41,8 @@ async function TripSection({ title, width = 20 }: TripSectionProps) {
 
       <div className="flex justify-center items-center md:hidden"></div>
     </section>
+    </main>
+
   );
 }
 

@@ -163,7 +163,9 @@ export default function ReelsCarousel() {
   useEffect(() => () => pauseAll(), [pauseAll]);
 
   return (
-    <section className="w-full sm:block hidden max-container bg-white py-2  relative">
+    <main className=" bg-white overflow-hidden" >
+
+    <section className="w-full sm:block max-container  hidden  py-2  relative">
       <h2 className="text-3xl font-bold mb-6 text-black px-4">
         Live the Adventure
       </h2>
@@ -248,5 +250,7 @@ export default function ReelsCarousel() {
         </div>
       </div>
     </section>
+    </main>
+
   );
 }

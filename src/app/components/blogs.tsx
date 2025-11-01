@@ -82,8 +82,8 @@ export default function BlogStories() {
   }, [emblaApi]);
 
   return (
-    <main className="bg-white max-container py-6">
-      <section className="w-full max-w-7xl mx-auto  md:px-6 lg:px-0">
+    <main className="bg-white overflow-hidden py-6">
+      <section className="w-full max-container mx-auto  md:px-6 lg:px-0">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-[28px] text-nowrap md:text-[40px] font-bold text-[#1C1C1C]">
