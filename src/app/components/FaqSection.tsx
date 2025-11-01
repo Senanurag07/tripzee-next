@@ -63,25 +63,32 @@ export default function FaqSection() {
           </h2>
 
           <Accordion type="single" collapsible className="w-full ">
-            {faqs.map((faq) => (
+            {faqs.map((faq, index) => (
               <AccordionItem
                 key={faq.id}
                 value={faq.id}
-                className="rounded-xl border border-transparent bg-transparent  "
+                className="rounded-xl border border-transparent bg-transparent"
               >
                 <AccordionTrigger className="flex items-center">
-                  <div className="flex items-center gap-6 text-lg font-semibold w-full">
-                    <span className=" text-black font-bold">{faq.id}</span>
-                    <span className="text-black text-lg ">{faq.question}</span>
+                  <div className="flex items-start gap-6 text-lg font-semibold w-full">
+                    <span className="text-black md:text-lg text-base">
+                      {faq.id}
+                    </span>
+                    <span className="text-black md:text-lg text-base">
+                      {faq.question}
+                    </span>
                   </div>
                 </AccordionTrigger>
-                <div className="w-full my-2">
-                  <div className="h-px hidden sm:block w-full bg-linear-to-r from-transparent via-black to-transparent"></div>
-                </div>
 
-                <AccordionContent className="ml-[60px] text-neutral-600 text-sm leading-relaxed">
+                <AccordionContent className="ml-[50px] text-neutral-600 text-sm leading-relaxed">
                   {faq.answer}
                 </AccordionContent>
+
+                {index !== faqs.length - 1 && (
+                  <div className="w-full my-2">
+                    <div className="h-px hidden sm:block w-full bg-linear-to-r from-transparent via-black to-transparent"></div>
+                  </div>
+                )}
               </AccordionItem>
             ))}
           </Accordion>

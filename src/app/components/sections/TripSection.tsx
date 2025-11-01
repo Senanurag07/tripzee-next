@@ -8,13 +8,9 @@ interface CustomLabelProps {
 
 const CustomLabel = ({ label}: CustomLabelProps) => (
   <div className="flex flex-col gap-2">
-    <h2 className="text-2xl md:text-3xl text-black lg:text-4xl font-bold">
+    <h2 className="text-[26px] md:text-3xl text-black lg:text-4xl font-extrabold">
       {label}
     </h2>
-    {/* <div
-      style={{ width: `${width}rem` }}
-      className="h-1.5 bg-[#FFE926] rounded-full"
-    ></div> */}
   </div>
 );
 
@@ -24,7 +20,6 @@ interface TripSectionProps {
 }
 
 async function TripSection({ title, width = 20 }: TripSectionProps) {
-  // In the future, you can replace this with an actual API call
   const result = { data: tripsData };
 
   if (!result?.data?.length) return null;
@@ -32,14 +27,12 @@ async function TripSection({ title, width = 20 }: TripSectionProps) {
   return (
     <main className="overflow-hidden bg-white" >
 
-    <section className="lg:py-8 max-container  py-6  relative">
-      <div className="flex justify-between items-center mb-8">
+    <section className="lg:py-8 max-container  pt-10 md:py-10  relative">
+      <div className="flex justify-between items-center mb-5">
         <CustomLabel label={title} width={width} />
       </div>
 
       <TripSlider data={result.data} />
-
-      <div className="flex justify-center items-center md:hidden"></div>
     </section>
     </main>
 

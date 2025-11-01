@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import DestinationCard, { demoDestinations } from "../cards/destination-card";
+import ProgressBar from "../ui/ProgressBar";
 
 const OPTIONS = {
   loop: false,
@@ -45,9 +46,6 @@ export default function DestinationSlider() {
     };
   }, [emblaApi, onScroll]);
 
-
- 
-
   return (
     <div className="relative h-full w-full">
       <div className="" ref={emblaRef}>
@@ -67,20 +65,12 @@ export default function DestinationSlider() {
         </div>
       </div>
 
-      <div className="mt-8 flex flex-col items-center gap-6">
-       
-        {/* Progress Bar */}
-        <div className="w-full max-w-[300px] px-4">
-          <div className="h-0.5 bg-gray-200 rounded-full relative overflow-hidden">
-            <div
-              className="h-full bg-black rounded-full transition-transform duration-300 ease-out"
-              style={{
-                transform: `translateX(${(scrollProgress - 1) * 100}%)`,
-                width: "100%",
-              }}
-            />
-          </div>
-        </div>
+      <div className="mt-6 px-4 max-w-[300px] mx-auto">
+        <ProgressBar
+          progress={scrollProgress}
+          activeIndex={0}
+          total={demoDestinations.length}
+        />
       </div>
     </div>
   );

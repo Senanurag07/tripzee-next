@@ -37,7 +37,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="w-full my-8">
+          <div className=" sm:block hidden w-full my-8">
             <div className="h-px w-full bg-[linear-gradient(to_right,transparent,#222222,transparent)] opacity-80"></div>
           </div>
 
@@ -259,6 +259,7 @@ const Footer = () => {
                 <AccordionTrigger className="text-lg font-semibold">
                   Contact
                 </AccordionTrigger>
+           
                 <AccordionContent>
                   <div className="space-y-2 text-sm">
                     <p className="mb-2">
@@ -275,10 +276,14 @@ const Footer = () => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
+                     <div className="w-full  my-1">
+            <div className="h-px w-full bg-[linear-gradient(to_right,transparent,#222222,transparent)] opacity-80"></div>
+          </div>
               <AccordionItem value="quick-links">
                 <AccordionTrigger className="text-lg font-semibold">
                   Quick Links
                 </AccordionTrigger>
+                
                 <AccordionContent>
                   <ul className="space-y-2 text-sm">
                     <li>
@@ -326,6 +331,9 @@ const Footer = () => {
                   </ul>
                 </AccordionContent>
               </AccordionItem>
+                <div className="w-full  my-1">
+            <div className="h-px w-full bg-[linear-gradient(to_right,transparent,#222222,transparent)] opacity-80"></div>
+          </div>
 
               {/* Global Escapes Accordion */}
               <AccordionItem value="global-escapes">
@@ -385,6 +393,9 @@ const Footer = () => {
                   </ul>
                 </AccordionContent>
               </AccordionItem>
+                     <div className="w-full  my-1">
+            <div className="h-px w-full bg-[linear-gradient(to_right,transparent,#222222,transparent)] opacity-80"></div>
+          </div>
 
               {/* India Getaways Accordion */}
               <AccordionItem value="india-getaways">
@@ -444,7 +455,9 @@ const Footer = () => {
                   </ul>
                 </AccordionContent>
               </AccordionItem>
-
+       <div className="w-full  my-1">
+            <div className="h-px w-full bg-[linear-gradient(to_right,transparent,#222222,transparent)] opacity-80"></div>
+          </div>
               {/* Other Packages Accordion */}
               <AccordionItem value="other-packages">
                 <AccordionTrigger className="text-lg font-semibold">
@@ -483,10 +496,10 @@ const Footer = () => {
           </div>
 
           {/* Social Media Links */}
-          <div className="w-full  my-8">
+          <div className="w-full sm:block hidden my-2">
             <div className="h-px w-full bg-[linear-gradient(to_right,transparent,#222222,transparent)] opacity-80"></div>
           </div>
-          <div className="flex  flex-col-reverse  md:flex-row justify-between items-center mt-6 bg-[#222222] text-white sm:px-4 py-5 rounded-sm sm:rounded-xl">
+          <div className="flex  flex-col-reverse  md:flex-row justify-between items-center mt-6 bg-[#222222] text-white sm:px-4 py-3 rounded-lg sm:rounded-xl">
             <p className="text-sm text-center md:text-left">
               © {new Date().getFullYear()} All rights reserved. Tripzee
               Holidays.
@@ -499,7 +512,7 @@ const Footer = () => {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 border border-white text-sm sm:text-lg  px-2 py-1.5 rounded-full hover:bg-gray-800 transition"
+                className="flex items-center gap-2 border border-white text-[12px] sm:text-lg  px-2 py-1.5 rounded-full hover:bg-gray-800 transition"
               >
                 <FaInstagram /> Instagram
               </a>
@@ -507,7 +520,7 @@ const Footer = () => {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 border border-white  text-sm sm:text-lg px-2  py-1.5 rounded-full hover:bg-gray-800 transition"
+                className="flex items-center gap-2 border border-white  text-[12px] sm:text-lg px-2  py-1.5 rounded-full hover:bg-gray-800 transition"
               >
                 <FaFacebook /> Facebook
               </a>
@@ -515,9 +528,9 @@ const Footer = () => {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 border border-white text-sm  px-2  sm:text-lg py-1.5 rounded-full hover:bg-gray-800 transition"
+                className="flex items-center gap-2 border border-white text-[12px]  px-2  sm:text-lg py-1.5 rounded-full hover:bg-gray-800 transition"
               >
-                <FaTwitter /> Twitter
+                <FaTwitter /> Twitter | X
               </a>
             </div>
           </div>

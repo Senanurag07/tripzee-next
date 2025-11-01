@@ -4,8 +4,42 @@ import React, { useEffect, useState } from "react";
 import { BsShieldCheck, BsPeople, BsGift, BsHeadset } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 import useEmblaCarousel from "embla-carousel-react";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
+import ProgressBar from "./ui/ProgressBar";
 
 export default function WhyTripzeeSection() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [
+    WheelGesturesPlugin(),
+  ]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const onSelect = () => {
+      setCurrentIndex(emblaApi.selectedScrollSnap());
+    };
+
+    const onScroll = () => {
+      const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()));
+      setScrollProgress(progress);
+      // Update index during scroll for smoother transitions
+      setCurrentIndex(emblaApi.selectedScrollSnap());
+    };
+
+    emblaApi.on("select", onSelect);
+    emblaApi.on("scroll", onScroll);
+
+    // Initialize values
+    onSelect();
+    onScroll();
+
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("scroll", onScroll);
+    };
+  }, [emblaApi, setScrollProgress, setCurrentIndex]);
   const features = [
     {
       icon: <BsPeople size={28} />,
@@ -31,35 +65,15 @@ export default function WhyTripzeeSection() {
 
   const reviews = [1, 2, 3, 4, 5]; // add more to see scroll properly
 
-  // ✅ Embla
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
-
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    const onScroll = () => {
-      const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()));
-      setScrollProgress(progress);
-    };
-
-    emblaApi.on("scroll", onScroll);
-    onScroll();
-
-    return () => {
-      emblaApi.off("scroll", onScroll);
-    };
-  }, [emblaApi]);
-
   return (
     <main className="bg-white overflow-hidden">
       <section className="w-full  max-container py-8 bg-white ">
         <div className="flex justify-between">
           <div className="flex  flex-col gap-3">
-            <h2 className="text-[36px] text-black font-bold tracking-tight">
+            <h2 className="sm:text-3xl text-[26px] text-black font-extrabold tracking-tight">
               Why Tripzee Holidays?
             </h2>
-            <p className="max-w-[600px] text-[16px] text-gray-600 leading-normal">
+            <p className="max-w-[600px] text-[14px] text-gray-600 leading-normal">
               We make travel simple and memorable. Explore dream destinations
               with zero stress.
             </p>
@@ -131,7 +145,9 @@ export default function WhyTripzeeSection() {
           </div>
         </div>
         {/* DIVIDER */}
-        <div className="w-full h-px bg-gray-200 my-8"></div>
+        <div className="w-full my-2">
+          <div className="h-px my-8 w-full bg-linear-to-r from-transparent via-black to-transparent"></div>
+        </div>
 
         {/* FEATURES GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -158,10 +174,10 @@ export default function WhyTripzeeSection() {
         </div>
 
         {/* CTA BOX */}
-        <div className="mt-12 flex-col-reverse bg-[#FFFBDF] rounded-xl p-6 flex  md:flex-row justify-between md:items-center gap-8 relative">
+        <div className="mt-12 flex-col-reverse bg-[#FFFBDF] rounded-xl p-6 flex  md:flex-row justify-between md:items-center sm:gap-8 gap-4 relative">
           {/* TEXT */}
-          <div className="max-w-[600px] flex flex-col gap-4">
-            <h3 className="text-[24px] text-black md:text-[28px] font-semibold">
+          <div className="max-w-[600px] flex flex-col gap-3">
+            <h3 className="text-[22px] text-black md:text-[28px] font-semibold">
               Not sure where your next adventure should be?
             </h3>
             <p className="text-[15px] text-gray-800 leading-[1.45]">
@@ -169,14 +185,14 @@ export default function WhyTripzeeSection() {
               energy and bring your travel dreams alive.
             </p>
 
-            <button className="bg-yellow-400 py-3 sm:w-68  w-52  mt-2 rounded-full font-medium text-gray-800 hover:bg-yellow-500 transition-all">
+            <button className="bg-secondary py-2.5 sm:w-68  w-56 mt-2 rounded-full font-bold text-gray-800 hover:bg-yellow-500 transition-all">
               Connect with Expert
             </button>
           </div>
 
           {/* IMAGES CLUSTER */}
           <div className="flex  ">
-            <div className="md:w-28 md:h-28 h-22 w-22 rounded-full overflow-hidden relative border-4 border-white shadow-lg">
+            <div className="md:w-28 md:h-28 h-20 w-20 rounded-full overflow-hidden relative shadow-lg">
               <Image
                 src="/assets/hero.jpg"
                 fill
@@ -185,7 +201,7 @@ export default function WhyTripzeeSection() {
                 sizes="(max-width: 112px) 100vw, 112px"
               />
             </div>
-            <div className="md:w-28 md:h-28 h-22 w-22 rounded-full overflow-hidden relative border-4 border-white -ml-5 shadow-lg">
+            <div className="md:w-28 md:h-28 h-20 w-20 rounded-full overflow-hidden relative   -ml-5 shadow-lg">
               <Image
                 src="/assets/hero.jpg"
                 fill
@@ -194,7 +210,7 @@ export default function WhyTripzeeSection() {
                 sizes="(max-width: 112px) 100vw, 112px"
               />
             </div>
-            <div className="md:w-28 md:h-28 h-22 w-22 rounded-full overflow-hidden relative border-4 border-white -ml-5 shadow-lg">
+            <div className="md:w-28 md:h-28 h-20 w-20 rounded-full overflow-hidden relative  -ml-5 shadow-lg">
               <Image
                 src="/assets/hero.jpg"
                 fill
@@ -206,14 +222,14 @@ export default function WhyTripzeeSection() {
           </div>
         </div>
 
-        <div className="mt-12 ">
+        <div className=" mt-10  ">
           <div className="flex justify-between">
             <div>
               {" "}
-              <h2 className="text-[32px] text-black font-bold tracking-tight">
-                Bucket List Experiences
+              <h2 className="text-[26px] md:text-2xl text-black font-extrabold tracking-tight">
+                Bucket List Experiences ?
               </h2>
-              <p className="max-w-[600px] text-[16px] text-gray-600 my-2 leading-normal">
+              <p className=" text-[14px] text-gray-600 my-2 leading-normal">
                 We make travel simple and memorable. Explore dream destinations
                 with zero stress.
               </p>
@@ -353,15 +369,11 @@ export default function WhyTripzeeSection() {
 
           {/* Progress Bar */}
           <div className="mt-6 px-4 max-w-[300px] mx-auto">
-            <div className="h-0.5 bg-gray-200 rounded-full relative overflow-hidden">
-              <div
-                className="h-full bg-black rounded-full transition-transform duration-300 ease-out absolute left-0 top-0"
-                style={{
-                  transform: `translateX(${(scrollProgress - 1) * 100}%)`,
-                  width: "100%",
-                }}
-              />
-            </div>
+            <ProgressBar
+              progress={scrollProgress}
+              activeIndex={currentIndex}
+              total={reviews.length}
+            />
           </div>
         </div>
       </section>

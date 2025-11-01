@@ -67,7 +67,7 @@ export default function HeroSection() {
   }, [isPaused, slides.length]);
 
   return (
-    <section className="relative h-[72vh] md:h-[88vh] w-full overflow-hidden bg-black">
+    <section className="relative  pb-6 h-[540px] md:pb-0  md:h-[88vh] w-full overflow-hidden bg-black">
       {/* Background Image */}
       <Image
         src="/assets/hero.jpg"
@@ -81,36 +81,35 @@ export default function HeroSection() {
       <div className="relative z-10 max-container px-5 lg:px-16 h-full flex flex-col lg:justify-between">
         {/* Top Text Section */}
         <div className="pt-10 lg:pt-28 w-full max-w-2xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight text-left sm:text-left">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-snug text-left sm:text-left">
             Sirf Trip Nahi, <br /> Memories Banao
           </h1>
-          <p className="text-white/90 mt-4 text-base md:text-lg leading-relaxed">
+          <p className="text-white/90 md:mt-4 mt-2 font-medium text-base md:text-lg leading-tight">
             From Insta-worthy stays to bucket-list adventures – we plan it all,
             you just live the vibe.
           </p>
 
           {/* Search Bar */}
-          <div className="mt-8 bg-white rounded-full flex items-center w-full max-w-md shadow-lg overflow-hidden">
+          <div className="sm:mt-8 mt-6 bg-white rounded-full flex items-center w-full max-w-md shadow-lg overflow-hidden">
             <div className="flex items-center pl-4 py-3 w-full">
               <MapPin className="w-5 h-5 text-yellow-500 mr-3" />
-              <div className="flex flex-col">
+              <div className="flex  flex-col"> 
                 <span className="text-xs text-gray-500">Destinations</span>
                 <input
                   type="text"
                   placeholder='Search "Dubai"'
-                  className="text-sm font-medium text-gray-800 placeholder-gray-400 outline-none border-none bg-transparent w-full"
+                  className="text-[16px] font-medium text-gray placeholder-black outline-none border-none bg-transparent w-full"
                 />
               </div>
             </div>
-            <button className="bg-yellow-400 hover:bg-yellow-500 transition-all text-black font-semibold px-6 py-3 rounded-full mr-2">
+            <button className="bg-secondary hover:bg-yellow-500 transition-all text-black font-semibold px-6 py-3 rounded-full mr-2">
               Explore
             </button>
           </div>
         </div>
 
         {/* Auto-scrolling Carousel Section (Bottom Left Fixed Position) */}
-        <div
-          className="relative w-full mt-8 lg:absolute lg:bottom-10 lg:left-4/7 lg:-translate-x-5 lg:w-[600px]"
+        <div className="relative w-full sm:mt-23 mt-25  lg:absolute lg:bottom-10 lg:left-4/7 lg:-translate-x-5 lg:w-[600px]"
         >
           <div
             className="overflow-hidden"
@@ -118,7 +117,7 @@ export default function HeroSection() {
             onMouseLeave={handleMouseLeave}
           >
             <div
-              className="flex gap-22 sm:gap-5 transition-transform duration-500"
+              className="flex gap-26 sm:gap-5 transition-transform duration-500"
               style={{ transform: `translateX(-${activeIndex * 50}%)` }}
             >
               {slides.map((slide) => (
@@ -126,8 +125,8 @@ export default function HeroSection() {
                   key={slide.id}
                   className="flex-[0_0_calc(50%-10px)] min-w-0 md:flex-[0_0_calc(50%-20px)]"
                 >
-                  <div className="bg-white/10 md:w-full w-3xs sm:w-full backdrop-blur-[1px] border border-white/20 rounded-2xl flex items-center gap-4 p-4 transition-all duration-300">
-                    <div className="shrink-0 w-20 border border-white h-20 overflow-hidden rounded-lg">
+                  <div className="bg-white/10 md:w-full w-3xs border-white sm:w-full backdrop-blur-[1px] border-[0.2px] rounded-2xl flex items-center gap-4 p-3 transition-all duration-300">
+                    <div className="shrink-0 sm:w-20 w-20 border-[0.5px] border-white h-18 overflow-hidden rounded-lg">
                       <Image
                         src={slide.img}
                         alt={slide.title}
@@ -137,10 +136,10 @@ export default function HeroSection() {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <h3 className="text-white font-semibold text-lg">
+                      <h3 className="text-white font-semibold text-base sm:text-lg">
                         {slide.title}
                       </h3>
-                      <p className="text-white/80 text-sm">{slide.desc}</p>
+                      <p className="text-white/80 text-[12px] sm:text-sm">{slide.desc}</p>
                     </div>
                   </div>
                 </div>

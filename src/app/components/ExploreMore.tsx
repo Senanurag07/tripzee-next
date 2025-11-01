@@ -19,7 +19,7 @@ export default function ExploreMore() {
     <main className="bg-[#F7F7F7]" >
 
     <section className="w-full max-container  py-10">
-      <h2 className="text-3xl font-bold mb-10 text-black ">Explore More</h2>
+      <h2 className="md:text-3xl text-[26px] font-extrabold mb-6 text-black ">Explore More</h2>
 
       <div className="  mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8 ">
         {/* LEFT CARDS */}
@@ -53,7 +53,7 @@ export default function ExploreMore() {
         </div>
 
         {/* RIGHT SIDE EXPERT BOXES */}
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-6 sm:gap-8">
           {[1, 2, 3].map((_, i) => (
             <div
               key={i}
@@ -71,9 +71,9 @@ export default function ExploreMore() {
         </div>
       </div>
 
-      <p className="sm:text-center  text-black  text-lg mt-10">
+      <p className="text-center  text-black  text-lg mt-10">
         We make travel simple and memorable.
-        <span className="text-yellow-600 font-semibold">
+        <span className="text-yellow-300 font-semibold">
       {" "}Explore dream destinations
         </span>{" "}
         with zero stress.
