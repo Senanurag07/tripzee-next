@@ -16,10 +16,12 @@ const cards = [
 
 export default function ExploreMore() {
   return (
-    <section className="w-full max-container bg-[#F7F7F7] py-10">
+    <main className="bg-[#F7F7F7]" >
+
+    <section className="w-full max-container  py-10">
       <h2 className="text-3xl font-bold mb-10 text-black ">Explore More</h2>
 
-      <div className="max-w-7xl  mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8 ">
+      <div className="  mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8 ">
         {/* LEFT CARDS */}
         <div className="lg:col-span-3 grid sm:grid-cols-3 md:gap-4 gap-8 ">
           {cards.map((c, i) => (
@@ -77,5 +79,6 @@ export default function ExploreMore() {
         with zero stress.
       </p>
     </section>
+    </main>
   );
 }
